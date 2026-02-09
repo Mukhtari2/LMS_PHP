@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('submissions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table -> id();
+            $table -> foreignId('assignment_id')->constrained()->onDelete('cascade');
+            $table -> foreignId('user_id')->constrained()->onDelete('cascade');
+            $table -> text('fileUrl');
+            $table -> string('student_id');
+            $table -> integer('grade')->nullable();
+            $table -> dateTime('ansered_at');
+            $table -> dateTime('submitted_at');
+            $table -> timestamps();
         });
     }
 

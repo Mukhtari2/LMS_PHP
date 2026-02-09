@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('assignments', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table -> id();
+             $table -> foreignId('lesson_id')->constrained()->onDelete('cascade');
+            $table -> string('title');
+            $table -> text('description');
+            $table -> dateTime('due_date');
+            $table -> timestamps();
         });
     }
 

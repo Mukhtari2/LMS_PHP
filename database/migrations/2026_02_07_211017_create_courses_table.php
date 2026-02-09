@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table -> id();
+            $table -> string('title');
+            $table -> text('description');
+            $table -> foreignId('teacher_id') -> constrained('users') -> onDelete('cascade');
+            $table -> enum('status', ['drafted', 'published']);
+            $table-> timestamps();
         });
     }
 
