@@ -9,7 +9,8 @@ class Course extends Model {
     protected $fillable = [
         'title',
         'description',
-        'teacher_id'
+        'teacher_id',
+        'is_published'
     ];
 
     public function teacher(): BelongsTo{

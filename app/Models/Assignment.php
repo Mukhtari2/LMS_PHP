@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
-    //
-    
+    protected $fillable = [
+        'course_id',
+        'title',
+        'description',
+        'due_date'
+    ];
+
+    public function submissions() {
+    return $this -> hasMany(Submission::class);
+    }
+
 }
