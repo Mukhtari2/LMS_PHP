@@ -11,7 +11,7 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
