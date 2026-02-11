@@ -16,7 +16,9 @@ class EnrollmentService {
         ]);
 
         if($enrollment -> wasRecentlyCreated){
-            return "Welcome to Course" ;
+            $enrollment -> message = "Welcome to the Course!" ;
+        }else{
+            $enrollment -> message = "You are already enrolled in this course";
         }
 
         return $enrollment;
