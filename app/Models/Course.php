@@ -10,7 +10,7 @@ class Course extends Model {
         'title',
         'description',
         'teacher_id',
-        'is_published'
+        'status'
     ];
 
     public function teacher(): BelongsTo{
