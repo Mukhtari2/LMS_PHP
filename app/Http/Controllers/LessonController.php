@@ -53,6 +53,7 @@ class LessonController extends Controller{
 
     }
 
+    
     /**
      * Display the specified resource.
      */
