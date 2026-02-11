@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseService {
     public function createCourse(array $data){
-
         return Course::create([
             'title' => $data['title'],
             'description' => $data ['description'],
             'teacher_id' => Auth::id(),
-            'is_published' => $data ['status'] === CourseStatus::PUBLISHED -> value,
+            'is_published' => $data ['is_published'] ?? false,
         ]);
+    }
+
+    public function updateCourse(Course $course, array $date){
+        $course -> update($data);
+        return $course;
     }
 
 }
