@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Services\AssignmentService;
 use Illuminate\Http\Request;
 
-class AssignmentController extends Controller
-{
+class AssignmentController extends Controller{
+    protected $assignmentService;
+
+    public function __construct(AssignmentService $assignmentService){
+        $this->assignmentService = $assignmentService;
+     }
+
     /**
      * Display a listing of the resource.
      */
