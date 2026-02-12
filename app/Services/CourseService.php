@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services
+namespace App\Services;
 
 use App\Enums\CourseStatus;
 use App\Models\Course;
@@ -17,9 +17,16 @@ class CourseService {
         ]);
     }
 
-    public function updateCourse(Course $course, array $date){
+    public function updateCourse(Course $course, array $data){
         $course -> update($data);
         return $course;
     }
 
+    public function getAllPublished(){
+        return Course::where('is_published', true)->with('teacher')->latest()->get();
+    }
+
+    public function deleteCourse(Course $course){
+        return $course->delete();
+    }
 }
