@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Assignment;
 use App\Services\AssignmentService;
 use Illuminate\Http\Request;
 
@@ -11,14 +11,14 @@ class AssignmentController extends Controller{
 
     public function __construct(AssignmentService $assignmentService){
         $this->assignmentService = $assignmentService;
-     }
+    }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-
+    public function index(Lesson $lesson){
+        $assignments = $lesson->assignments;
+        return view('assignments.index', compact('assignments', 'lesson'));
     }
 
 
@@ -33,9 +33,17 @@ class AssignmentController extends Controller{
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $request->validate([
+            'course_id' => 'required|string|max:225',
+            'title' => 'required|string|max:225',
+            'description' => 'required|string|max:225',
+            'due_date' => 'required|date|after:today',
+        ]);
+
+        $this->assignmentService->createAssignment($request->all());
+
+        return back()->with('status', 'Assignment created successfully');
     }
 
     /**
@@ -57,9 +65,16 @@ class AssignmentController extends Controller{
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, Assignment $assignment){
+        $validated = $request->validate([
+              'title' => 'required|string|max:255',
+             'instructions' => 'required',
+             'due_date' => 'required|date|after:now',
+        ]);
+
+        $this->assignmentService->updateAssignment($assignment, $validated);
+
+        return back()->with('status', 'Assignment updated successfully!');
     }
 
     /**

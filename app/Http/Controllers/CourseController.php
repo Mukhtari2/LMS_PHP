@@ -7,7 +7,7 @@ use App\Services\CourseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class CourseController extends Controller {
+class CourseController extends Controller{
     protected $courseService;
 
     public function __construct(CourseService $courseService){
@@ -31,7 +31,6 @@ class CourseController extends Controller {
         return Redirect()->route('dashboard')->with('status', 'Course created successfully!');
 
     }
-
 
     public function show (Course $course){
         $course->load('lessons');
