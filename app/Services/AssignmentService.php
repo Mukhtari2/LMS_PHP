@@ -23,4 +23,11 @@ class AssignmentService{
         return $assignment;
     }
 
+    public function getAssignmentDetails(string $id){
+        return Assignment::with([
+            'lesson.course',
+            'submissions.user'
+        ])->findOrFail($id);
+    }
+
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\User;
 use App\Services\AssignmentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AssignmentController extends Controller{
     protected $assignmentService;
@@ -49,9 +51,19 @@ class AssignmentController extends Controller{
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        
+    public function show(string $id){
+        $assignment = $this->assignmentService->getAssignmentDetails($id);
+
+        $user = Auth::user();
+
+
+        $userSubmission = $assignment->submissions()->where('user_id', $user->id)->first();
+        return view('assignment.show', [
+            'assignment' => $assignment,
+            'isTeacher' => $user->id === $assignment->lesson->course->teacher_id,
+            'userSubmission' => $userSubmission
+        ]);
+
     }
 
     /**
