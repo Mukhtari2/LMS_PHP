@@ -51,7 +51,7 @@ class AssignmentController extends Controller{
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -67,9 +67,9 @@ class AssignmentController extends Controller{
      */
     public function update(Request $request, Assignment $assignment){
         $validated = $request->validate([
-              'title' => 'required|string|max:255',
-             'instructions' => 'required',
-             'due_date' => 'required|date|after:now',
+            'title' => 'required|string|max:255',
+            'instructions' => 'required|string|max:255',
+            'due_date' => 'required|date|after:now',
         ]);
 
         $this->assignmentService->updateAssignment($assignment, $validated);
