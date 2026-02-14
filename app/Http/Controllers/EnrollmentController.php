@@ -6,7 +6,7 @@ use App\Services\EnrollmentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EnrollmentController extends Controller{
+class EnrollmentController extends Controller {
     protected $enrollmentService;
 
     public function __construct(EnrollmentService $enrollmentService){

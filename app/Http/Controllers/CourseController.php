@@ -7,7 +7,7 @@ use App\Services\CourseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class CourseController extends Controller{
+class CourseController extends Controller {
     protected $courseService;
 
     public function __construct(CourseService $courseService){

@@ -8,7 +8,7 @@ use App\Services\AssignmentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AssignmentController extends Controller{
+class AssignmentController extends Controller {
     protected $assignmentService;
 
     public function __construct(AssignmentService $assignmentService){
