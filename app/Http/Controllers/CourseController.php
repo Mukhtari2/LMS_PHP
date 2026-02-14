@@ -29,7 +29,6 @@ class CourseController extends Controller {
         $this->courseService->createCourse($request->all());
 
         return Redirect()->route('dashboard')->with('status', 'Course created successfully!');
-
     }
 
     public function show (Course $course){
