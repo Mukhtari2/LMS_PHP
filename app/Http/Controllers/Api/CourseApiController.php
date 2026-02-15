@@ -26,6 +26,7 @@ class CourseApiController extends Controller {
             'message' => 'Course created via API!',
             'data' => $course
         ], 201);
+        
     }
 }
 

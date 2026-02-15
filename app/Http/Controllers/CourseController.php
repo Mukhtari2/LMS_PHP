@@ -7,6 +7,7 @@ use App\Services\CourseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
+
 class CourseController extends Controller {
     protected $courseService;
 
@@ -14,7 +15,7 @@ class CourseController extends Controller {
         $this->courseService = $courseService;
     }
 
-    
+
     public function index(){
         $courses = $this->courseService->getAllPublished();
         return view('courses.index', compact('courses'));
