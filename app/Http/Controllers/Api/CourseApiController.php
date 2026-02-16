@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Services\CourseService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class CourseApiController extends Controller {
     protected $courseService;
@@ -14,19 +15,47 @@ class CourseApiController extends Controller {
         $this->courseService = $courseService;
     }
 
-    public function index() {
-        return response()->json($this->courseService->getAllPublished());
+    public function index(): JsonResponse {
+        $courses = $this->courseService->getAllPublished();
+        return response()->json([
+            'success' => true,
+            'count' => $courses->count(),
+            'data' => $courses
+        ], 200);
     }
 
-    public function store(Request $request) {
-        $data = $request->validate(['title' => 'required', 'description' => 'required']);
+    public function store(Request $request): JsonResponse {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'is_published' => 'nullable|boolean',
+            'teacher_id' => 'required|exists:users,id']);
+
         $course = $this->courseService->createCourse($data);
 
         return response()->json([
-            'message' => 'Course created via API!',
+            'status' => 'success',
+            'message' => 'Course created successfully!',
             'data' => $course
         ], 201);
-        
+
+    }
+
+    public function update(Request $request, Course $course): JsonResponse{
+        $data =$request->validate([
+            'title' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'is_published' => 'sometimes|boolean'
+        ]);
+
+        $updatedCourse = $this->courseService->updateCourse($course, $data);
+        return response()->json($updatedCourse);
+    }
+
+    public function destroy(Course $course){
+        $this->courseService->deleteCourse($course);
+        return response()->json(['message' =>'Course deleted successfully'], 200);
+
     }
 }
 

@@ -2,18 +2,16 @@
 
 namespace App\Services;
 
-use App\Enums\CourseStatus;
 use App\Models\Course;
-use Illuminate\Support\Facades\Auth;
 
 
 class CourseService {
     public function createCourse(array $data){
         return Course::create([
             'title' => $data['title'],
-            'description' => $data ['description'],
-            'teacher_id' => Auth::id(),
-            'is_published' => $data ['is_published'] ?? false,
+            'description' => $data['description'],
+            'teacher_id' => $data['teacher_id'],
+            'is_published' => $data['is_published'] ?? false,
         ]);
     }
 
@@ -23,7 +21,10 @@ class CourseService {
     }
 
     public function getAllPublished(){
-        return Course::where('is_published', true)->with('teacher')->latest()->get();
+        return Course::where('is_published', true)
+        ->with(['teacher', 'lessons'])
+        ->latest()
+        ->get();
     }
 
     public function deleteCourse(Course $course){
