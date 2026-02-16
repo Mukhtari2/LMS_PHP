@@ -55,7 +55,6 @@ class CourseApiController extends Controller {
     public function destroy(Course $course){
         $this->courseService->deleteCourse($course);
         return response()->json(['message' =>'Course deleted successfully'], 200);
-
     }
 }
 
