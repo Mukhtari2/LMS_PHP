@@ -2,9 +2,23 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/setup-admin', function () {
+    $user = User::updateOrCreate(
+        ['email' => 'admin@test.com'], // Don't duplicate if exists
+        [
+            'name' => 'Super Admin',
+            'password' => Hash::make('password123'),
+            'role' => 'admin'
+        ]
+    );
+    return "Admin created successfully! Email: admin@test.com, Password: password123";
 });
 
 Route::get('/dashboard', function () {
