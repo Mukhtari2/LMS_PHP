@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
-use App\Models\User;
+use App\Models\Lesson;
 use App\Services\AssignmentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,26 +15,20 @@ class AssignmentController extends Controller {
         $this->assignmentService = $assignmentService;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Lesson $lesson){
         $assignments = $lesson->assignments;
         return view('assignments.index', compact('assignments', 'lesson'));
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request){
         $request->validate([
             'course_id' => 'required|string|max:225',
@@ -48,9 +42,7 @@ class AssignmentController extends Controller {
         return back()->with('status', 'Assignment created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id){
         $assignment = $this->assignmentService->getAssignmentDetails($id);
 
@@ -66,17 +58,12 @@ class AssignmentController extends Controller {
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Assignment $assignment){
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -89,9 +76,7 @@ class AssignmentController extends Controller {
         return back()->with('status', 'Assignment updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         //
