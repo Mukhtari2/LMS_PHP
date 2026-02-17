@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Enrollment;
 use App\Services\EnrollmentService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Illuminate\Http\JsonResponse;
 
 class EnrollmentApiController extends Controller {
     protected $enrollementService;

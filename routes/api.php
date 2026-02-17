@@ -2,6 +2,7 @@
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\CourseApiController;
 use App\Http\Controllers\Api\EnrollmentApiController;
+use App\Http\Controllers\Api\LessonApiController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 
@@ -15,5 +16,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/courses/{course}', [CourseApiController::class, 'update']);
     Route::delete('/courses/{course}', [CourseApiController::class, 'destroy']);
     Route::post('/enrollCourse', [EnrollmentApiController::class, 'store']);
+    Route::post('/writeLessonNote', [LessonApiController::class, 'store']);
 });
 
