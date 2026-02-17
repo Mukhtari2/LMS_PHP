@@ -16,6 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/courses/{course}', [CourseApiController::class, 'update']);
     Route::delete('/courses/{course}', [CourseApiController::class, 'destroy']);
     Route::post('/enrollCourse', [EnrollmentApiController::class, 'store']);
-    Route::post('/writeLessonNote', [LessonApiController::class, 'store']);
+    Route::post('/lesson', [LessonApiController::class, 'store']);
+    Route::put('/lessons/{lesson}', [LessonApiController::class, 'update']);
 });
 

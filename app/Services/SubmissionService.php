@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Submission;
+use Illuminate\Support\Facades\Auth;
 
 use function Symfony\Component\Clock\now;
 

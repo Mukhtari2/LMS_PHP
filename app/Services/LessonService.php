@@ -13,7 +13,7 @@ class LessonService {
         ]);
     }
 
-    public function updateCourse(Lesson $lesson, array $data){
+    public function updateLesson(Lesson $lesson, array $data){
         $lesson -> update($data);
         return$lesson;
     }
