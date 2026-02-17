@@ -13,7 +13,11 @@ Route::get('/setup-admin', function () {
     $user = User::updateOrCreate(
         ['email' => 'admin@test.com'], // Don't duplicate if exists
         [
-            'name' => 'Super Admin',
+            'name' => 'Super A
+
+
+
+            dmin',
             'password' => Hash::make('password123'),
             'role' => 'admin'
         ]

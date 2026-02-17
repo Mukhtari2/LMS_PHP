@@ -20,7 +20,6 @@ class EnrollmentController extends Controller {
             'course_id' => 'required|exists:courses,id'
         ]);
 
-
         $user = Auth::user();
         $enrollment = $this -> enrollmentService ->enrollStudent(
             $user,
