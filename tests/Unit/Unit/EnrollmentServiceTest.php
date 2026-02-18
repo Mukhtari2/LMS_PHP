@@ -5,7 +5,6 @@ namespace Tests\Unit\Unit;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Course;
-use App\Models\Enrollment;
 use App\Services\EnrollmentService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
