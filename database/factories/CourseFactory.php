@@ -18,7 +18,7 @@ public function definition(): array{
     return [
         'title' => fake()->sentence(),
         'description' => fake()->paragraph(),
-        'teacher_id' => \App\Models\User::factory(), // Automatically creates a teacher
+        'teacher_id' => \App\Models\User::factory(),
         'is_published' => false,
         'status' => 'drafted',
     ];
