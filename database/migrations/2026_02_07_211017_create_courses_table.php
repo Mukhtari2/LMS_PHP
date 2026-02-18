@@ -17,7 +17,6 @@ return new class extends Migration
             $table -> text('description');
             $table -> foreignId('teacher_id') -> constrained('users') -> onDelete('cascade');
             $table->boolean('is_published')->default(false);
-            $table->string('status')->default('drafted');
             $table-> timestamps();
         });
     }

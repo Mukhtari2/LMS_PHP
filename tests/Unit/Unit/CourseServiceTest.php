@@ -50,4 +50,63 @@ class CourseServiceTest extends TestCase {
 
     }
 
+    #[Test]
+    public function remove_course(){
+        $teacher = User::factory()->create(['role' => 'teacher']);
+        $data = [
+            'title' => 'Gel101',
+            'description' => 'Domestic Minerology',
+            'teacher_id' => $teacher->id,
+            'is_published' => true,
+            'status' => 'active',
+        ];
+
+        $new_course = $this->courseService->createCourse($data);
+
+
+        $this->assertDatabaseCount('courses', 1);
+        $this->courseService->deleteCourse($new_course);
+        $this->assertDatabaseMissing('courses', $data);
+
+    }
+
+     #[Test]
+    public function update_course(){
+        $teacher = User::factory()->create(['role' => 'teacher']);
+        $data = [
+            'title' => 'Gel101',
+            'description' => 'Domestic Minerology',
+            'teacher_id' => $teacher->id,
+            'is_published' => true,
+            'status' => 'active',
+        ];
+
+        $course = $this->courseService->createCourse($data);
+        $this->assertDatabaseCount('courses', 1);
+
+        $updateData = [
+            'title' => 'Advanced Geology',
+            'description' => 'Advanced Rock Formations',
+        ];
+
+        $updatedCourse = $this->courseService->updateCourse($course, $updateData);
+
+        $this->assertEquals('Advanced Rock Formations', $updatedCourse->description);
+        $this->assertDatabaseHas('courses', [
+            'id' => $course->id,
+            'title' => 'Advanced Geology',
+            'description' => 'Advanced Rock Formations',
+        ]);
+
+        $this->assertDatabaseMissing('courses', [
+            'title' => 'Gel101',
+        ]);
+
+
+    }
+
+
+
+
+
 }

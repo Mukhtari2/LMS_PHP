@@ -20,7 +20,6 @@ public function definition(): array{
         'description' => fake()->paragraph(),
         'teacher_id' => \App\Models\User::factory(),
         'is_published' => false,
-        'status' => 'drafted',
     ];
 }
 
