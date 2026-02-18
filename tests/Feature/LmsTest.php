@@ -24,4 +24,18 @@ class LmsTest extends TestCase{
         $response->assertStatus(201);
         $this->assertDatabaseHas('users', ['email' => 'Mukhtar001@t.com']);
     }
+
+    public function to_create_course_by_teacher(){
+        $teacher = User::factory()->create(['role' => 'teacher']);
+        $response = $this->actingAs($teacher, 'sanctum')->postJson('/api/courses',[
+            'title' => 'Creating a course',
+            'description' => 'learning managenment system',
+            'teacher_id' => $teacher->id,
+            'is_published' => true,
+        ]);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('courses', ['title' => 'Laravel Testing']);
+    }
+    
 }
