@@ -15,10 +15,11 @@ return new class extends Migration
             $table -> id();
             $table -> foreignId('assignment_id')->constrained()->onDelete('cascade');
             $table -> foreignId('user_id')->constrained()->onDelete('cascade');
-            $table -> text('fileUrl');
+            $table->string('file_url')->nullable();
             $table -> string('student_id');
             $table -> integer('grade')->nullable();
-            $table -> dateTime('ansered_at');
+            $table->timestamp('answered_at')->nullable();
+            $table->text('teacher_feedback')->nullable();
             $table -> dateTime('submitted_at');
             $table -> timestamps();
         });

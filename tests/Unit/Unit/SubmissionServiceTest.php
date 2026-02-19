@@ -41,6 +41,7 @@ class SubmissionServiceTest extends TestCase
             'student_id'    => $student->id,
             'grade'         => null,
             'teacher_feedback' => null,
+            'submitted_at'  => now(),
         ];
 
         $submission = $this->submissionService->createSubmission($data, $file);
@@ -49,6 +50,42 @@ class SubmissionServiceTest extends TestCase
         $this->assertDatabaseHas('submissions', [
             'assignment_id' => $assignment->id,
             'user_id'       => $student->id,
+        ]);
+        $this->assertNull($submission->teacher_feedback);
+        $this->assertNull($submission->grade);
+        $this->assertEquals($student->id, $submission->user_id);
+    }
+
+    #[Test]
+    public function test_to_grade_submission(){
+
+        $student = User::factory()->create(['role' => 'student']);
+        $assignment = Assignment::factory()->create();
+
+
+        $submission = Submission::create([
+            'assignment_id' => $assignment->id,
+            'user_id'       => $student->id,
+            'student_id'    => $student->id,
+            'file_url'      => 'submissions/test.pdf',
+            'submitted_at'  => now(),
+            'grade'         => null,
+        ]);
+
+
+        $grade = 85;
+        $feedback = "Great work on the implementation!";
+
+        $result = $this->submissionService->gradeSubmission($submission, $grade, $feedback);
+
+
+        $this->assertTrue($result);
+        $this->assertEquals(85, $submission->fresh()->grade);
+
+        $this->assertDatabaseHas('submissions', [
+            'id' => $submission->id,
+            'grade' => 85,
+            'teacher_feedback' => $feedback
         ]);
     }
 }
