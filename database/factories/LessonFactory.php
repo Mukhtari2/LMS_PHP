@@ -5,18 +5,21 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Assignment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lesson>
  */
-class AssignmentFactory extends Factory
+class LessonFactory extends Factory
 {
-
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         return [
             'course_id' => \App\Models\Course::factory(),
             'title' => fake()->sentence(),
-            'description' => fake()->paragraph(),
-            'due_date' => now()->addDays(7),
+            'content_url' => fake()->url(),
         ];
     }
 }

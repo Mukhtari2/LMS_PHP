@@ -58,7 +58,6 @@ class SubmissionServiceTest extends TestCase
 
     #[Test]
     public function test_to_grade_submission(){
-
         $student = User::factory()->create(['role' => 'student']);
         $assignment = Assignment::factory()->create();
 
@@ -72,12 +71,10 @@ class SubmissionServiceTest extends TestCase
             'grade'         => null,
         ]);
 
-
         $grade = 85;
         $feedback = "Great work on the implementation!";
 
         $result = $this->submissionService->gradeSubmission($submission, $grade, $feedback);
-
 
         $this->assertTrue($result);
         $this->assertEquals(85, $submission->fresh()->grade);
