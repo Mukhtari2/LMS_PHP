@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Services\CourseService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Exception;
 
 class CourseApiController extends Controller {
     protected $courseService;
@@ -16,12 +17,19 @@ class CourseApiController extends Controller {
     }
 
     public function index(): JsonResponse {
-        $courses = $this->courseService->getAllPublished();
-        return response()->json([
-            'success' => true,
-            'count' => $courses->count(),
-            'data' => $courses
-        ], 200);
+        try{
+            $courses = $this->courseService->getAllPublished();
+            return response()->json([
+                'success' => true,
+                'count' => $courses->count(),
+                'data' => $courses
+            ], 200);
+        } catch (Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve courses.'
+            ], 500);
+        }
     }
 
     public function store(Request $request): JsonResponse {
@@ -31,13 +39,19 @@ class CourseApiController extends Controller {
             'is_published' => 'nullable|boolean',
             'teacher_id' => 'required|exists:users,id']);
 
-        $course = $this->courseService->createCourse($data);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Course created successfully!',
-            'data' => $course
-        ], 201);
+        try{
+            $course = $this->courseService->createCourse($data);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Course created successfully!',
+                'data' => $course
+            ], 201);
+        } catch (Exception $e){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'could not create course, please try again'
+            ], 500);
+        }
 
     }
 

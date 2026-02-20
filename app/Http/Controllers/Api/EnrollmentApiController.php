@@ -7,6 +7,7 @@ use App\Models\Enrollment;
 use App\Services\EnrollmentService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Exception;
 
 class EnrollmentApiController extends Controller {
     protected $enrollementService;
@@ -17,19 +18,26 @@ class EnrollmentApiController extends Controller {
 
     public function store (Request $request): JsonResponse{
         $request->validate([
-            'course_id' => 'required|exists:courses,id',
+            'course_id' => 'required',
         ]);
+        try{
+            $enrollment = $this->enrollementService->enrollStudent(
+                $request->user(),
+                $request->course_id
+            );
 
-        $enrollment = $this->enrollementService->enrollStudent(
-            $request->user(),
-            $request->course_id
-        );
-
-        return response()->json([
-            'status' => 'success',
-            'message' => $enrollment->message,
-            'data' =>$enrollment
-        ], 201);
+            return response()->json([
+                'status' => 'success',
+                'message' => $enrollment->message,
+                'data' =>$enrollment
+            ], 201);
+        } catch (Exception $e){
+            return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+            ], 404);
+        }
+        
     }
 
 }
