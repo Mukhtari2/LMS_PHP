@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\BaseAudit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Submission extends Model{
 
     use HasFactory;
+    use BaseAudit;
 
     protected $fillable = [
     'assignment_id',

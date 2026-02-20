@@ -17,6 +17,8 @@ return new class extends Migration
             $table -> string('title');
             $table -> text('description');
             $table -> dateTime('due_date');
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table -> timestamps();
         });
     }

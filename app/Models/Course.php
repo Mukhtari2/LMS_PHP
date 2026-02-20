@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\BaseAudit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Course extends Model {
     use HasFactory;
+    use BaseAudit;
     
     protected $fillable = [
         'title',

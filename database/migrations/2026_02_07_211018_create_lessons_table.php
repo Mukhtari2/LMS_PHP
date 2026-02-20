@@ -17,6 +17,8 @@ return new class extends Migration
             $table -> string('title');
             $table -> integer('order') -> default(0);
             $table->string('content_url')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table -> timestamps();
         });
     }

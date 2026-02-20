@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\BaseAudit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class Lesson extends Model{
 
     use HasFactory;
-    
+    use BaseAudit;
+
     protected $fillable = [
         'course_id',
         'title',

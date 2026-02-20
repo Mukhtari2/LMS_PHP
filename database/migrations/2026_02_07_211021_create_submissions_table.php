@@ -21,6 +21,8 @@ return new class extends Migration
             $table->timestamp('answered_at')->nullable();
             $table->text('teacher_feedback')->nullable();
             $table -> dateTime('submitted_at');
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table -> timestamps();
         });
     }

@@ -105,6 +105,25 @@ class CourseServiceTest extends TestCase {
 
     }
 
+    #[Test]
+    public function it_records_audit_information()
+    {
+        $teacher = User::factory()->create(['role' => 'teacher']);
+
+        $this->actingAs($teacher);
+
+        $course = $this->courseService->createCourse([
+            'title' => 'Audit Test',
+            'description' => 'Testing BaseAudit',
+            'teacher_id' => $teacher->id,
+            'is_published' => true
+        ]);
+
+        $this->assertEquals($teacher->id, $course->created_by);
+        $this->assertEquals($teacher->id, $course->updated_by);
+        $this->assertNotNull($course->created_at); // This is your createDate
+    }
+
 
 
 

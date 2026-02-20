@@ -17,6 +17,8 @@ return new class extends Migration
             $table -> text('description');
             $table -> foreignId('teacher_id') -> constrained('users') -> onDelete('cascade');
             $table->boolean('is_published')->default(false);
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table-> timestamps();
         });
     }
