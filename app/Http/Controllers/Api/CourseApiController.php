@@ -62,13 +62,25 @@ class CourseApiController extends Controller {
             'is_published' => 'sometimes|boolean'
         ]);
 
-        $updatedCourse = $this->courseService->updateCourse($course, $data);
-        return response()->json($updatedCourse);
+        try{
+            $updatedCourse = $this->courseService->updateCourse($course, $data);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Course updated successfully!',
+                'data' => $updatedCourse
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Update failed.'
+            ], 500);
     }
 
     public function destroy(Course $course){
         $this->courseService->deleteCourse($course);
-        return response()->json(['message' =>'Course deleted successfully'], 200);
+        return response()->json([
+            'status' => 'success',
+            'message' =>'Course deleted successfully'], 200);
     }
 }
 
