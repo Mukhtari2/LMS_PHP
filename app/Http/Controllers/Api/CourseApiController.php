@@ -28,7 +28,7 @@ class CourseApiController extends Controller {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to retrieve courses.'
-            ], 500);
+            ], 400);
         }
     }
 
@@ -50,7 +50,7 @@ class CourseApiController extends Controller {
             return response()->json([
                 'status' => 'error',
                 'message' => 'could not create course, please try again'
-            ], 500);
+            ], 400);
         }
 
     }
@@ -73,7 +73,7 @@ class CourseApiController extends Controller {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Update failed.'
-            ], 500);
+            ], 400);
     }
 
     public function destroy(Course $course){
@@ -87,7 +87,7 @@ class CourseApiController extends Controller {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Deletion failed.'
-            ], 500);
+            ], 400);
         }
     }
 }

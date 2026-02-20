@@ -11,7 +11,6 @@ use Exception;
 class EnrollmentService {
     public function enrollStudent (User $user, $courseId){
         try{
-
             if(!Course::where('id', $courseId)->exists()){
                 throw new Exception("Course not found.");
             }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Lesson;
+use Exception;
 
 class LessonService {
     public function createLesson(array $data){

@@ -23,27 +23,41 @@ class AssignmentApiController extends Controller
             'course_id'   => 'required|exists:courses,id',
             'title'       => 'required|string|max:255',
             'description' => 'required|string',
-            'due_date'    => 'required|date|after:now', // Ensures the date is in the future
+            'due_date'    => 'required|date|after:now',
         ]);
 
-        $assignment = $this->assignmentService->createAssignment($data);
+        try{
+            $assignment = $this->assignmentService->createAssignment($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Assignment created successfully!',
-            'data' => $assignment
-        ], 201);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Assignment created successfully!',
+                'data' => $assignment
+            ], 201);
+        } catch (Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'create assignment failed'
+            ], 400)
+        }
     }
 
 
     public function show(string $id): JsonResponse
     {
-        $assignment = $this->assignmentService->getAssignmentDetails($id);
+        try{
+            $assignment = $this->assignmentService->getAssignmentDetails($id);
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $assignment
-        ], 200);
+            return response()->json([
+                'status' => 'success',
+                'data' => $assignment
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'create assignment failed'
+            ], 400)
+        }
     }
 
  
@@ -55,13 +69,19 @@ class AssignmentApiController extends Controller
             'due_date'    => 'sometimes|date',
             'course_id'   => 'sometimes|exists:courses,id'
         ]);
+        try{
+            $updatedAssignment = $this->assignmentService->updateAssignment($assignment, $data);
 
-        $updatedAssignment = $this->assignmentService->updateAssignment($assignment, $data);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Assignment updated successfully!',
-            'data' => $updatedAssignment
-        ], 200);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Assignment updated successfully!',
+                'data' => $updatedAssignment
+            ], 200);
+        } catch (Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'update assignment failed'
+            ], 400);
+        }
     }
 }
