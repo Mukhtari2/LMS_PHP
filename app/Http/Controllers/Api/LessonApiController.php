@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\LessonService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Exception;
+use App\Models\Lesson;
 
 class LessonApiController extends Controller {
     protected $lessonService;
@@ -20,13 +22,20 @@ class LessonApiController extends Controller {
             'title' => 'required|string|max:225',
             'content_url' => 'nullable|string|max:225'
         ]);
-        $lesson = $this->lessonService->createLesson($data);
+        try{
+            $lesson = $this->lessonService->createLesson($data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Lesson created successfully!',
-            'data' => $lesson], 201
-        );
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Lesson created successfully!',
+                'data' => $lesson], 201
+            );
+        } catch (Exception $e){
+            return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+            ], 404);
+        }
     }
 
     public function update(Request $request, Lesson $lesson): JsonResponse {
@@ -36,13 +45,20 @@ class LessonApiController extends Controller {
             'course_id'   => 'sometimes|exists:courses,id'
         ]);
 
-        $updatedLesson = $this->lessonService->updateLesson($lesson, $data);
+        try{
+            $updatedLesson = $this->lessonService->updateLesson($lesson, $data);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Lesson updated successfully!',
-            'data' => $updatedLesson
-        ], 200);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Lesson updated successfully!',
+                'data' => $updatedLesson
+            ], 200);
+        } catch (Exception $e){
+            return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+            ], 404);
+        }
     }
 
 }

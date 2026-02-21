@@ -40,4 +40,33 @@ class LessonServiceTest extends TestCase {
         ]
         );
     }
+
+    #[Test]
+    public function test_update_lesson(): void{
+        $lesson = Lesson::factory()->create();
+        $data = [
+            'course_id' => $lesson->id,
+            'title' => 'Gel212',
+            'content_url' => 'hthjgf',
+        ];
+        $this->lessonService->createLesson($data);
+
+        $updateDetails = [
+            'course_id' => $lesson->id,
+            'title' => 'gel232',
+            'content_url' => 'http://www.geoworld.com/mukhtar',
+        ];
+
+        $newUpdate = $this->lessonService->updateLesson($lesson, $updateDetails);
+
+        $this->assertEquals('gel232', $newUpdate->title);
+        $this->assertDatabaseHas('lessons', [
+             'course_id' => $lesson->id,
+            'title' => 'gel232',
+            'content_url' => 'http://www.geoworld.com/mukhtar',
+        ]);
+        $this->assertDatabaseMissing('lessons', [
+             'content_url' => 'hthjgf'
+        ]);
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Course;
+use Exception;
+use Illuminate\Support\Facades\Log; 
 
 
 class CourseService {

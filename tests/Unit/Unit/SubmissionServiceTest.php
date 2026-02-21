@@ -72,7 +72,7 @@ class SubmissionServiceTest extends TestCase
         ]);
 
         $grade = 85;
-        $feedback = "Great work on the implementation!";
+        $feedback = "excellent score on your trial";
 
         $result = $this->submissionService->gradeSubmission($submission, $grade, $feedback);
 
