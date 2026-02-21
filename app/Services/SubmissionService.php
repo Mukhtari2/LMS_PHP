@@ -47,7 +47,7 @@ public function gradeSubmission(Submission $submission, int $grade, $feedback = 
         ]);
     } catch (Exception $exception){
         Log::error("unable to grade submiision: ", $exception->getMessage());
-        throw new Exception("Faile to grade submision, please try again with the corect credentials");
+        throw new Exception("Faile to grade submision, please try again with the corect credentials 😒");
     }
 }
 
