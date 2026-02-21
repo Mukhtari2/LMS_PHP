@@ -7,6 +7,7 @@ use App\Models\Assignment;
 use App\Services\AssignmentService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Exception;
 
 class AssignmentApiController extends Controller
 {
@@ -38,7 +39,7 @@ class AssignmentApiController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'create assignment failed'
-            ], 400)
+            ], 400);
         }
     }
 
@@ -56,7 +57,7 @@ class AssignmentApiController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'create assignment failed'
-            ], 400)
+            ], 400);
         }
     }
 

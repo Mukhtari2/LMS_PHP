@@ -74,6 +74,7 @@ class CourseApiController extends Controller {
                 'status' => 'error',
                 'message' => 'Update failed.'
             ], 400);
+        }
     }
 
     public function destroy(Course $course){

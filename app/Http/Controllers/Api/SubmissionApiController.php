@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Submission;
 use App\Services\SubmissionService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -27,16 +28,23 @@ class SubmissionApiController extends Controller {
         ]);
 
 
-        $submission = $this->submissionService->createSubmission(
-            $data,
-            $request->file('file')
-        );
+        try{
+            $submission = $this->submissionService->createSubmission(
+                $data,
+                $request->file('file')
+            );
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Assignment submitted successfully!',
-            'data' => $submission
-        ], 201);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Assignment submitted successfully!',
+                'data' => $submission
+            ], 201);
+        } catch (Exception $e){
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     public function grade(Request $request, Submission $submission): JsonResponse {
@@ -45,16 +53,23 @@ class SubmissionApiController extends Controller {
             'feedback' => 'nullable|string'
         ]);
 
-        $this->submissionService->gradeSubmission(
-            $submission,
-            $request->grade,
-            $request->feedback
-        );
+        try{
+            $this->submissionService->gradeSubmission(
+                $submission,
+                $request->grade,
+                $request->feedback
+            );
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Submission graded successfully!',
-            'data' => $submission->fresh()
-        ], 200);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Submission graded successfully!',
+                'data' => $submission->fresh()
+            ], 200);
+        } catch (Exception $e){
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 }

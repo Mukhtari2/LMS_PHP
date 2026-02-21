@@ -60,5 +60,4 @@ class LessonApiController extends Controller {
             ], 404);
         }
     }
-
 }
