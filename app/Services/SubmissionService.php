@@ -33,17 +33,22 @@ public function createSubmission(array $data, $file = null){
             'submitted_at'  => now(),
         ]);
     } catch (Exception $exception){
-        Log::error("Failed to update submission");
+        Log::error("Failed to update submission: ", $exception->getMessage());
         throw new Exception("Unable to update submission, please try again!");
     }
 
 }
 
 public function gradeSubmission(Submission $submission, int $grade, $feedback = null){
-    return $submission->update([
+    try{
+        return $submission->update([
         'grade' => $grade,
         'teacher_feedback' => $feedback,
-    ]);
+        ]);
+    } catch (Exception $exception){
+        Log::error("unable to grade submiision: ", $exception->getMessage());
+        throw new Exception("Faile to grade submision, please try again with the corect credentials");
+    }
 }
 
 }

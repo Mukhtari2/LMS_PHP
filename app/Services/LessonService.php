@@ -15,7 +15,7 @@ class LessonService {
                 'content_url' => $data['content_url'] ?? null,
             ]);
         } catch (Exception $e){
-            Log::error("Creating lesson failed");
+            Log::error("Creating lesson failed: ", $e->getMessage());
             throw new Exception("Failed to create lesson, please try again");
         }
     }
@@ -25,7 +25,7 @@ class LessonService {
             $lesson -> update($data);
             return $lesson;
         } catch (Exception $e){
-            Log::error("update lesson failed");
+            Log::error("update lesson failed: ", $e->getMessage());
             throw new Exception("this operation failed maybe due to invalid credential provided");
         }
     }
