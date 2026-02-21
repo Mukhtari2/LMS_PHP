@@ -41,19 +41,18 @@ class LessonServiceTest extends TestCase {
         );
     }
 
-    
+
     #[Test]
     public function test_update_lesson(): void{
-        $lesson = Lesson::factory()->create();
-        $data = [
-            'course_id' => $lesson->id,
+        $course = Course::factory()->create();
+        $lesson = Lesson::factory()->create([
+            'course_id' => $course->id,
             'title' => 'Gel212',
             'content_url' => 'hthjgf',
-        ];
-        $this->lessonService->createLesson($data);
+        ]);
 
         $updateDetails = [
-            'course_id' => $lesson->id,
+            'course_id' => $course->id,
             'title' => 'gel232',
             'content_url' => 'http://www.geoworld.com/mukhtar',
         ];
