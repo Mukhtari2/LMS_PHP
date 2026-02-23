@@ -33,3 +33,5 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('assignments/{id}', [AssignmentApiController::class, 'show']);
     });
 });
+
+
