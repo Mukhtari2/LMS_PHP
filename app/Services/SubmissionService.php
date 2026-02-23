@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Submission;
 use Illuminate\Support\Facades\Auth;
 use Exception;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
 
 use function Symfony\Component\Clock\now;
 
@@ -17,7 +17,7 @@ public function createSubmission(array $data, $file = null){
 
         if($file){
             $filePath = $file->store('submissions', 'public');
-        }
+        } 
 
         return Submission::updateOrCreate([
             'assignment_id' => $data['assignment_id'],
