@@ -37,16 +37,18 @@ return [
 
     'mailers' => [
 
-        'smtp' => [
+        'mailtrap' => [
             'transport' => 'smtp',
-            'scheme' => env('MAIL_SCHEME'),
-            'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', '127.0.0.1'),
+            // 'scheme' => env('MAIL_SCHEME'),
+            // 'url' => env('MAIL_URL'),
+            'host' => env('MAIL_HOST', 'sandbox.smtp.mailtrap.io'),
             'port' => env('MAIL_PORT', 2525),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'username' => env('MAIL_USERNAME', '6aa50629caea51'),
+            'password' => env('MAIL_PASSWORD', '9715da1fdce16c'),
+            'token' => env('MAIL_PASSWORD', '9715da1fdce16c'),
             'timeout' => null,
-            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+            // 'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
         'ses' => [
