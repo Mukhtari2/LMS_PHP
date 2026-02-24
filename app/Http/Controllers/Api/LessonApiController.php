@@ -58,6 +58,7 @@ class LessonApiController extends Controller {
             'status' => 'error',
             'message' => $e->getMessage()
             ], 404);
+            
         }
     }
 }
