@@ -45,7 +45,6 @@ class SubmissionController extends Controller {
             $request->grade,
             $request->teacher_feedback
         );
-
         return back()->with('status', 'Grade updated succesfully!');
     }
 }
