@@ -36,7 +36,7 @@ class SubmissionController extends Controller {
         }
 
         $request->validate([
-            'grade'            => 'required|integer|min:0|max:100',
+            'grade' => 'required|integer|min:0|max:100',
             'teacher_feedback' => 'nullable|string',
         ]);
 
